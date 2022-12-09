@@ -1,0 +1,27 @@
+--create and game store database
+CREATE TABLE game_store (id INTEGER, name TEXT, category TEXT, quantity INTEGER, price REAL);
+INSERT INTO game_store VALUES (1, "Carcassone", "Tiles", 15, 35.99);
+INSERT INTO game_store VALUES (2, "Love Letter", "Party", 22, 15.00);
+INSERT INTO game_store VALUES (3, "Magic the Gathering", "TCG", 30, 24.99);
+INSERT INTO game_store VALUES (4, "DND", "RPG", 5, 23.99); 
+INSERT INTO game_store VALUES (5, "Pokemon", "TCG", 55, 4.99);
+INSERT INTO game_store VALUES (6, "Gloomhaven", "RPG", 3, 115.00);
+INSERT INTO game_store VALUES (7, "Agricola", "Worker Placement", 7, 30.99);
+INSERT INTO game_store VALUES (8, "BattleCon", "Dueling Cards", 2, 70.99);
+INSERT INTO game_store VALUES (9, "Patchwork", "2-player Puzzle", 5, 20.99);
+INSERT INTO game_store VALUES (10, "Railroad Ink", "Roll and Write", 8, 20.99);
+INSERT INTO game_store VALUES (11, "For Sale", "Bidding", 4, 16.99);
+INSERT INTO game_store VALUES (12, "Zombicide", "Hack n Slash", 2, 50.99);
+INSERT INTO game_store VALUES (13, "Digimon", "TCG", 50, 4.99);
+INSERT INTO game_store VALUES (14, "Flamecraft", "Worker Placement", 3, 35.99);
+INSERT INTO game_store VALUES (15, "Viticulture", "Worker Placement", 4, 45.99);
+
+--display the database by price
+Select name, price, category FROM game_Store ORDER BY price;
+
+--What is the total store inventory?
+SELECT SUM(quantity) FROM game_store 
+
+
+
+
