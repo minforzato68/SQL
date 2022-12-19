@@ -1,0 +1,102 @@
+/* Create table about the people and what they do here */
+
+CREATE TABLE celebrities (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT);
+
+INSERT INTO celebrities (first_name, last_name) VALUES ("Ashton", "Kutcher");
+INSERT INTO celebrities (first_name, last_name) VALUES ("Mila", "Kunis");
+INSERT INTO celebrities (first_name, last_name) VALUES ("Tom", "Hanks");
+INSERT INTO celebrities (first_name, last_name) VALUES ("Rita", "Wilson");
+INSERT INTO celebrities (first_name, last_name) VALUES ("Ryan", "Reynolds");
+INSERT INTO celebrities (first_name, last_name) VALUES ("Blake", "Lively");
+INSERT INTO celebrities (first_name, last_name) VALUES ("Jennifer", "Lawrence");
+INSERT INTO celebrities (first_name, last_name) VALUES ("George", "Clooney");
+INSERT INTO celebrities (first_name, last_name) VALUES ("Dax", "Shepard");
+INSERT INTO celebrities (first_name, last_name) VALUES ("Kristen", "Bell");
+INSERT INTO celebrities (first_name, last_name) VALUES ("Jake", "Gyllenhaal");
+INSERT INTO celebrities (first_name, last_name) VALUES ("Maggie", "Gyllenhaal");
+INSERT INTO celebrities (first_name, last_name) VALUES ("Sarah", "Jessica Parker");
+INSERT INTO celebrities (first_name, last_name) VALUES ("Matthew", "Broderick");
+INSERT INTO celebrities (first_name, last_name) VALUES ("Ryan", "Gosling");
+INSERT INTO celebrities (first_name, last_name) VALUES ("Rachel", "McAdams");
+INSERT INTO celebrities (first_name, last_name) VALUES ("Natalie", "Portman");
+
+
+SELECT * FROM celebrities;
+
+CREATE TABLE spouses (id INTEGER PRIMARY KEY, spouse1_id INTEGER, spouse2_id INTEGER);
+
+INSERT INTO spouses (spouse1_id, spouse2_id) VALUES (1,2);
+INSERT INTO spouses (spouse1_id, spouse2_id) VALUES (3,4);
+INSERT INTO spouses (spouse1_id, spouse2_id) VALUES (5,6);
+INSERT INTO spouses (spouse1_id, spouse2_id) VALUES(9,10);
+INSERT INTO spouses (spouse1_id, spouse2_id) VALUES (11,12);
+INSERT INTO spouses (spouse1_id, spouse2_id) VALUES (13,14);
+INSERT INTO spouses (spouse1_id, spouse2_id) VALUES (15,16);
+
+
+CREATE TABLE movies (id INTEGER PRIMARY KEY, celebrity_id INTEGER, movie_name TEXT, gross REAL);
+
+INSERT INTO movies (celebrity_id, movie_name, gross) VALUES (1, "No String Attached", 149000000);
+INSERT INTO movies (celebrity_id, movie_name, gross) VALUES (2, "The Book of Eli", 157000000);
+INSERT INTO movies (celebrity_id, movie_name, gross) VALUES (3, "Saving Private Ryan", 485000000);
+INSERT INTO movies (celebrity_id, movie_name, gross) VALUES (4, "Sleepless in Seattle", 227000000);
+INSERT INTO movies (celebrity_id, movie_name, gross) VALUES (5, "Deadpool", 782000000);
+INSERT INTO movies (celebrity_id, movie_name, gross) VALUES (6, "Age of Adaline", 65700000);
+INSERT INTO movies (celebrity_id, movie_name, gross) VALUES (7, "Silver Linings Playbook", 236000000);
+INSERT INTO movies (celebrity_id, movie_name, gross) VALUES (8, "Ocean's Eleven", 450000000);
+INSERT INTO movies (celebrity_id, movie_name, gross) VALUES (9, "Idiocracy", 500000);
+INSERT INTO movies (celebrity_id, movie_name, gross) VALUES (10, "Frozen", 1200000000);
+INSERT INTO movies (celebrity_id, movie_name, gross) VALUES (11, "Brokeback Mountain", 178000000);
+INSERT INTO movies (celebrity_id, movie_name, gross) VALUES (12, "The Dark Knight", 998000000);
+INSERT INTO movies (celebrity_id, movie_name, gross) VALUES (13, "L.A. Story", 28000000);
+INSERT INTO movies (celebrity_id, movie_name, gross) VALUES (14, "Ferris Buellers Day Off", 70000000);
+INSERT INTO movies (celebrity_id, movie_name, gross) VALUES (15, "La La Land", 488000000);
+INSERT INTO movies (celebrity_id, movie_name, gross) VALUES (16, "The Notebook", 115000000);
+INSERT INTO movies (celebrity_id, movie_name, gross) VALUES (17, "The Black Swan", 329000000);
+
+CREATE TABLE ages (id INTEGER PRIMARY KEY, celebrity_id INTEGER, age INTEGER);
+INSERT INTO ages (celebrity_id, age) VALUES (1, 44);
+INSERT INTO ages (celebrity_id, age) VALUES (2, 39);
+INSERT INTO ages (celebrity_id, age) VALUES (3, 66);
+INSERT INTO ages (celebrity_id, age) VALUES (4, 66);
+INSERT INTO ages (celebrity_id, age) VALUES (5, 46);
+INSERT INTO ages (celebrity_id, age) VALUES (6, 35);
+INSERT INTO ages (celebrity_id, age) VALUES (7, 32);
+INSERT INTO ages (celebrity_id, age) VALUES (8, 61);
+INSERT INTO ages (celebrity_id, age) VALUES (9, 47);
+INSERT INTO ages (celebrity_id, age) VALUES (10, 42);
+INSERT INTO ages (celebrity_id, age) VALUES (11, 41);
+INSERT INTO ages (celebrity_id, age) VALUES (12, 45);
+INSERT INTO ages (celebrity_id, age) VALUES (13, 57);
+INSERT INTO ages (celebrity_id, age) VALUES (14, 60);
+INSERT INTO ages (celebrity_id, age) VALUES (15, 42);
+INSERT INTO ages (celebrity_id, age) VALUES (16, 44);
+INSERT INTO ages (celebrity_id, age) VALUES (17, 41);
+
+/*Who is married to who?*/
+
+SELECT a.first_name, a.last_name, b.first_name, b.last_name   FROM spouses 
+JOIN celebrities a ON spouses.spouse1_id = a.id
+JOIN celebrities b ON spouses.spouse2_id = b.id;
+
+/*What was their biggest movie?*/
+
+SELECT first_name, last_name, movie_name FROM movies JOIN celebrities ON celebrity_id = celebrities.id;
+
+/*Who starred in the highest grossing film? */
+
+SELECT first_name, last_name, movie_name, MAX(gross) AS highest_grossing_film FROM movies JOIN celebrities ON celebrity_id = celebrities.id;
+
+/*Who has an age gap between their partner of greater than 10 years?*/
+SELECT a.first_name, a.last_name, c.age, b.first_name, b.last_name, d.age  FROM spouses 
+JOIN celebrities a ON spouses.spouse1_id = a.id
+JOIN celebrities b ON spouses.spouse2_id = b.id
+JOIN ages c ON a.id = c.id
+JOIN ages d ON b.id = d.id
+WHERE c.age > (10+d.age) OR d.age > (10+c.age);
+
+
+
+
+
+
