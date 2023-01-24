@@ -20,3 +20,6 @@ SELECT product, sum(quantity), sum(quantity)*price AS revenue FROM BIT_DB.FebSal
 
 #7. How many customers ordered more than 2 products at a time, and what was the average amount spent for those customers? 
 SELECT count(distinct cust.acctnum), avg(quantity*price) FROM BIT_DB.Febsales Feb LEFT JOIN BIT_DB.customers cust ON FEB.orderid=cust.order_id WHERE Feb.Quantity>2 AND length(orderid)=6 AND orderid<> 'Order ID';
+
+#8. List all the products sold in Los Angeles in February, and include how many of each were sold.
+SELECT distinct Product, SUM(quantity) AS Total_Sold FROM BIT_DB.FebSales WHERE Location LIKE '%Los Angeles%' GROUP BY Product; 
