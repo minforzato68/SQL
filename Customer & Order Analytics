@@ -23,3 +23,18 @@ SELECT count(distinct cust.acctnum), avg(quantity*price) FROM BIT_DB.Febsales Fe
 
 #8. List all the products sold in Los Angeles in February, and include how many of each were sold.
 SELECT distinct Product, SUM(quantity) AS Total_Sold FROM BIT_DB.FebSales WHERE Location LIKE '%Los Angeles%' GROUP BY Product; 
+
+/*Which locations in New York received at least 3 orders in January, and how many orders did they each receive?*/
+SELECT  distinct Location, count (orderID) AS Total_Orders FROM BIT_DB.FebSales WHERE Location LIKE '%NY%' AND length(OrderID=6) AND OrderID <> 'Order ID' GROUP BY Location HAVING count(orderID)>2;
+
+/*How many of each type of headphone were sold in February?*/
+SELECT distinct Product, sum(Quantity) AS Quantity FROM BIT_DB.FebSales WHERE Product LIKE '%headphone%' GROUP BY Product;
+
+/*What was the average amount spent per account in February? */
+SELECT sum(quantity*price)/count(cust.acctnum) FROM BIT_DB.FebSales Sales LEFT JOIN BIT_DB.customers Cust ON Sales.OrderID = Cust.Order_ID WHERE length(OrderID=6) AND OrderID <> 'Order ID';
+
+/*What was the average quantity of products purchased per account in February?*/
+SELECT sum(quantity)/count(cust.acctnum) FROM BIT_DB.FebSales Sales LEFT JOIN BIT_DB.customers Cust ON Sales.OrderID = Cust.Order_ID WHERE length(OrderID=6) AND OrderID <> 'Order ID';
+
+/*Which product brought in the most revenue in January and how much revenue did it bring in total?*/
+SELECT distinct Product, sum(quantity*price) AS Revenue FROM BIT_Db.JanSales GROUP BY Product ORDER BY sum(quantity*price) desc limit 1;
